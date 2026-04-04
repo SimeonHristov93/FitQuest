@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Page Not Found — FitQuest{% endblock %}
+
+{% block content %}
+<div class="px-4 py-16">
+    <div class="max-w-3xl mx-auto text-center">
+        <p class="text-sm font-semibold text-indigo-600 uppercase tracking-wide">404 error</p>
+        <h1 class="mt-4 text-4xl font-bold text-gray-900">Page not found</h1>
+        <p class="mt-4 text-gray-600">
+            The page you are looking for does not exist, may have been moved, or is temporarily unavailable.
+        </p>
+        <div class="mt-8 flex justify-center gap-4">
+            <a href="{% url 'challenge_list' %}" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">
+                Back to challenges
+            </a>
+            {% if request.user.is_authenticated %}
+            <a href="{% url 'notifications:list' %}" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                View notifications
+            </a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
