@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block title %}All Challenges - FitQuest{% endblock %}
+
+{% block content %}
+<div class="px-4 py-8">
+    <div class="sm:flex sm:items-center sm:justify-between mb-8">
+        <div>
+            <h1 class="text-3xl font-bold text-gray-900">All Challenges</h1>
+            <p class="mt-2 text-sm text-gray-700">Browse and join fitness challenges</p>
+        </div>
+        <div class="mt-4 sm:mt-0">
+            <a href="{% url 'challenge_create' %}" class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                <svg class="-ml-1 mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                </svg>
+                Create Challenge
+            </a>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {% for challenge in challenges %}
+        <div class="bg-white overflow-hidden shadow rounded-lg hover:shadow-xl transition-shadow duration-300">
+            <div class="p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium
+                        {% if challenge.difficulty == 'easy' %}
+                            bg-green-100 text-green-800
+                        {% elif challenge.difficulty == 'medium' %}
+                            bg-yellow-100 text-yellow-800
+                        {% else %}
+                            bg-red-100 text-red-800
+                        {% endif %}">
+                        {{ challenge.get_difficulty_display }}
+                    </span>
+                    <span class="text-sm text-gray-500">{{ challenge.duration_days }} days</span>
+                </div>
+                
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">{{ challenge.title }}</h3>
+                <p class="text-sm text-gray-600 mb-4">{{ challenge.description|truncatewords:15 }}</p>
+                
+                <div class="flex items-center justify-between pt-4 border-t border-gray-200">
+                    <span class="text-xs text-gray-500">by {{ challenge.creator.username }}</span>
+                    <a href="{% url 'challenge_detail' challenge.pk %}" class="text-indigo-600 hover:text-indigo-900 text-sm font-medium">
+                        View Details →
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-span-full text-center py-12">
+            <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+            </svg>
+            <h3 class="mt-2 text-sm font-medium text-gray-900">No challenges</h3>
+            <p class="mt-1 text-sm text-gray-500">Get started by creating a new challenge.</p>
+            <div class="mt-6">
+                <a href="{% url 'challenge_create' %}" class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">
+                    Create Challenge
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

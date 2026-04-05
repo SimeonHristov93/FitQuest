@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ object.title }} - FitQuest{% endblock %}
+
+{% block content %}
+<div class="px-4 py-8">
+    <div class="max-w-4xl mx-auto">
+        <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+            <div class="px-6 py-8">
+                <div class="flex items-center justify-between mb-6">
+                    <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium
+                        {% if object.difficulty == 'easy' %}
+                            bg-green-100 text-green-800
+                        {% elif object.difficulty == 'medium' %}
+                            bg-yellow-100 text-yellow-800
+                        {% else %}
+                            bg-red-100 text-red-800
+                        {% endif %}">
+                        {{ object.get_difficulty_display }}
+                    </span>
+                    <span class="text-sm text-gray-600">{{ object.duration_days }} days</span>
+                </div>
+
+                <h1 class="text-4xl font-bold text-gray-900 mb-4">{{ object.title }}</h1>
+
+                <div class="flex items-center space-x-4 mb-6 pb-6 border-b border-gray-200">
+                    <div class="flex items-center">
+                        <div class="h-10 w-10 rounded-full bg-indigo-100 flex items-center justify-center">
+                            <span class="text-sm font-bold text-indigo-600">{{ object.creator.username.0|upper }}</span>
+                        </div>
+                        <div class="ml-3">
+                            <p class="text-sm font-medium text-gray-900">Created by</p>
+                            <a href="{% url 'user_profile' object.creator.username %}" class="text-sm text-indigo-600 hover:text-indigo-900 font-medium">
+                                {{ object.creator.username }}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="prose max-w-none mb-8">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-3">Description</h3>
+                    <p class="text-gray-700 whitespace-pre-line">{{ object.description }}</p>
+                </div>
+
+                <div class="flex flex-wrap gap-3 pt-6 border-t border-gray-200">
+                    {% if user.is_authenticated %}
+                        {% if is_contestant %}
+                            <a href="{% url 'log_progress' object.pk %}" class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                                Log Progress
+                            </a>
+                            <a href="{% url 'leave_challenge' object.pk %}" class="inline-flex items-center px-4 py-2 border border-red-300 shadow-sm text-sm font-medium rounded-md text-red-700 bg-white hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                                Leave Challenge
+                            </a>
+                        {% else %}
+                            <a href="{% url 'join_challenge' object.pk %}" class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                Join Challenge
+                            </a>
+                        {% endif %}
+                    {% endif %}
+
+                    {% if user == object.creator %}
+                    <a href="{% url 'challenge_edit' object.pk %}" class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        Edit Challenge
+                    </a>
+                    <a href="{% url 'challenge_delete' object.pk %}" class="inline-flex items-center px-4 py-2 border border-red-300 shadow-sm text-sm font-medium rounded-md text-red-700 bg-white hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                        Delete Challenge
+                    </a>
+                    {% endif %}
+
+                    <a href="{% url 'leaderboard:leaderboard' object.pk %}" class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        View Leaderboard
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

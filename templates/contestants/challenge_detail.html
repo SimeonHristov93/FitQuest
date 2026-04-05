@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Challenge Details - FitQuest{% endblock %}
+
+{% block content %}
+<div class="px-4 py-8">
+    <div class="max-w-4xl mx-auto">
+        <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+            <div class="px-6 py-8">
+                <h1 class="text-4xl font-bold text-gray-900 mb-6">Challenge Details</h1>
+                
+                {% if user.is_authenticated %}
+                <div class="flex justify-center">
+                    <a href="{% url 'join_challenge' object.pk %}" class="inline-flex items-center px-6 py-3 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        <svg class="-ml-1 mr-3 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                        </svg>
+                        Join Challenge
+                    </a>
+                </div>
+                {% else %}
+                <div class="text-center">
+                    <p class="text-gray-600 mb-4">Please log in to join this challenge</p>
+                    <a href="{% url 'login' %}" class="inline-flex items-center px-6 py-3 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">
+                        Sign In
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

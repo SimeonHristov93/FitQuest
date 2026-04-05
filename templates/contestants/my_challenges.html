@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %}My Challenges - FitQuest{% endblock %}
+
+{% block content %}
+<div class="px-4 py-8">
+    <div class="mb-8">
+        <h1 class="text-3xl font-bold text-gray-900">My Challenges</h1>
+        <p class="mt-2 text-sm text-gray-700">Track your active fitness challenges</p>
+    </div>
+
+    <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {% for c in contestants %}
+        <div class="bg-white overflow-hidden shadow rounded-lg hover:shadow-xl transition-shadow duration-300">
+            <div class="p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium
+                        {% if c.challenge.difficulty == 'easy' %}
+                            bg-green-100 text-green-800
+                        {% elif c.challenge.difficulty == 'medium' %}
+                            bg-yellow-100 text-yellow-800
+                        {% else %}
+                            bg-red-100 text-red-800
+                        {% endif %}">
+                        {{ c.challenge.get_difficulty_display }}
+                    </span>
+                    <span class="text-xs text-gray-500">{{ c.challenge.duration_days }} days</span>
+                </div>
+
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">{{ c.challenge.title }}</h3>
+                <p class="text-sm text-gray-600 mb-4">{{ c.challenge.description|truncatewords:10 }}</p>
+
+                <div class="flex items-center justify-between mb-4 pb-4 border-b border-gray-200">
+                    <span class="text-xs text-gray-500">Joined: {{ c.joined_at|date:"M d, Y" }}</span>
+                </div>
+
+                <div class="flex gap-2">
+                    <a href="{% url 'log_progress' c.challenge.pk %}" class="flex-1 inline-flex justify-center items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        Log Progress
+                    </a>
+                    <a href="{% url 'challenge_detail' c.challenge.pk %}" class="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        View
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-span-full text-center py-12">
+            <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+            </svg>
+            <h3 class="mt-2 text-sm font-medium text-gray-900">No active challenges</h3>
+            <p class="mt-1 text-sm text-gray-500">Join a challenge to get started.</p>
+            <div class="mt-6">
+                <a href="{% url 'challenge_list' %}" class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">
+                    Browse Challenges
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

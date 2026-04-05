@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ profile.user.username }}'s Profile - FitQuest{% endblock %}
+
+{% block content %}
+<div class="px-4 py-8">
+    <div class="max-w-3xl mx-auto">
+        <div class="bg-white shadow rounded-lg">
+            <div class="px-4 py-5 sm:px-6 border-b border-gray-200 flex justify-between items-center">
+                <h2 class="text-2xl font-bold text-gray-900">{{ profile.user.username }}'s Profile</h2>
+                {% if is_owner %}
+                <a href="{% url 'profile_edit' %}" class="inline-flex items-center px-3 py-1.5 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700">
+                    Edit Profile
+                </a>
+                {% endif %}
+            </div>
+
+            <div class="px-4 py-5 sm:p-6">
+                <div class="flex items-start space-x-4 mb-6">
+                    {% if profile.profile_picture %}
+                    <img src="{{ profile.profile_picture.url }}" alt="Profile Picture" class="h-24 w-24 rounded-full object-cover">
+                    {% else %}
+                    <div class="h-24 w-24 rounded-full bg-indigo-100 flex items-center justify-center">
+                        <span class="text-3xl font-bold text-indigo-600">{{ profile.user.username.0|upper }}</span>
+                    </div>
+                    {% endif %}
+
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-900">{{ profile.user.username }}</h3>
+{#                        <p class="mt-1 text-gray-500">{{ profile.user.email }}</p>#}
+                    </div>
+                </div>
+
+                <dl class="space-y-4">
+                    <div class="flex items-start">
+                        <dt class="w-24 text-sm font-medium text-gray-500">Bio</dt>
+                        <dd class="text-sm text-gray-900">{{ profile.bio|default:"No bio yet." }}</dd>
+                    </div>
+
+                    <div class="flex items-start">
+                        <dt class="w-24 text-sm font-medium text-gray-500">Age</dt>
+                        <dd class="text-sm text-gray-900">{{ profile.age|default:"Not specified" }}</dd>
+                    </div>
+
+                    <div class="flex items-start">
+                        <dt class="w-24 text-sm font-medium text-gray-500">Weight</dt>
+                        <dd class="text-sm text-gray-900">{% if profile.weight %}{{ profile.weight }} kg{% else %}Not specified{% endif %}</dd>
+                    </div>
+
+                    <div class="flex items-start">
+                        <dt class="w-24 text-sm font-medium text-gray-500">Fitness Level</dt>
+                        <dd class="text-sm text-gray-900">
+                            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-indigo-100 text-indigo-800">
+                                {{ profile.get_fitness_level_display|default:"Not specified" }}
+                            </span>
+                        </dd>
+                    </div>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
