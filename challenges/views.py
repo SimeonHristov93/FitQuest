@@ -6,6 +6,7 @@ from django.views.generic import DetailView
 from django.views.generic import CreateView
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib import messages
 from django.views.generic import UpdateView
 from django.views.generic import DeleteView
 
@@ -42,7 +43,9 @@ class ChallengeCreateView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.creator = self.request.user
-        return super().form_valid(form)
+        response = super().form_valid(form)
+        messages.success(self.request, f"Challenge '{self.object.title}' was created successfully.")
+        return response
 
 class ChallengeUpdateView(LoginRequiredMixin, OwnerRequiredMixin, UpdateView):
     model = Challenge
@@ -54,4 +57,3 @@ class ChallengeDeleteView(LoginRequiredMixin, OwnerRequiredMixin, DeleteView):
     model = Challenge
     template_name = 'challenges/challenge_delete.html'
     success_url = reverse_lazy('challenge_list')
-
