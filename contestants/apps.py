@@ -6,4 +6,4 @@ class ContestantsConfig(AppConfig):
     name = 'contestants'
 
     def ready(self):
-        from contestants import signals  # noqa: F401
+        from contestants import signals
