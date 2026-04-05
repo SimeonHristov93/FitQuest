@@ -15,8 +15,24 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
+from django.views.generic import RedirectView
+from notifications import urls as notification_urls
 
 urlpatterns = [
+    path('', RedirectView.as_view(pattern_name='challenge_list', permanent=False)),
     path('admin/', admin.site.urls),
+    path('accounts/', include('accounts.urls')),
+    path('challenges/', include('challenges.urls')),
+    path('contestants/', include('contestants.urls')),
+    path('leaderboard/', include(('leaderboard.urls', 'leaderboard'), namespace='leaderboard')),
+    path('achievements/', include('achievements.urls')),
+    path('api/', include('api.urls')),
+    path('notifications/', include((notification_urls, 'notifications'), namespace='notifications')),
+
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
