@@ -1,3 +1,5 @@
 from django.contrib import admin
+from .models import ChallengeContestant, ProgressEntry
 
-# Register your models here.
+admin.site.register(ChallengeContestant)
+admin.site.register(ProgressEntry)
