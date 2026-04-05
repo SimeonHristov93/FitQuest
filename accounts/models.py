@@ -9,11 +9,17 @@ class Profile(models.Model):
     ]
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    username = models.CharField(max_length=150, blank=True, default='', editable=False)
     profile_picture = models.ImageField(upload_to='profiles/', blank=True, null=True)
     age = models.PositiveIntegerField(null=True, blank=True)
     weight = models.PositiveIntegerField(null=True, blank=True)
     fitness_level = models.CharField(max_length=20, choices=FITNESS_LEVEL_CHOICES, blank=True, null=True)
     bio = models.TextField(blank=True)
+
+    def save(self, *args, **kwargs):
+        if self.user_id:
+            self.username = self.user.username
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return f"{self.user.username}'s Profile"

@@ -1,5 +1,4 @@
 from datetime import timedelta
-
 from django.contrib.auth import logout
 from django.utils import timezone
 
