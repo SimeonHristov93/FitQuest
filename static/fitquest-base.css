@@ -1,0 +1,36 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif;
+    line-height: 1.5;
+    background-color: #f9fafb;
+    color: #111827;
+}
+
+a {
+    text-decoration: none;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+@keyframes notifications-flash {
+    0%, 100% { transform: scale(1); }
+    25% { transform: scale(1.05); }
+    50% { transform: translateY(-2px); }
+    75% { transform: scale(1.02); }
+}
+
+.notification-flash {
+    animation: notifications-flash 0.8s ease-in-out 0s infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .notification-flash {
+        animation: none;
+    }
+}
