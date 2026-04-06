@@ -27,6 +27,7 @@ SECRET_KEY = os.getenv("SECRET_KEY", "django-insecure-local-dev-fallback-key-cha
 DEBUG = os.getenv("DEBUG") == "True"
 
 ALLOWED_HOSTS = [host for host in os.getenv("ALLOWED_HOSTS", "").split(",") if host]
+CSRF_TRUSTED_ORIGINS = [o for o in os.getenv("CSRF_TRUSTED_ORIGINS").split(",") if o]
 
 # Application definition
 
@@ -64,7 +65,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'FitQuest.urls'
+ROOT_URLCONF = 'fitquest.urls'
 
 TEMPLATES = [
     {
@@ -83,7 +84,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'FitQuest.wsgi.application'
+WSGI_APPLICATION = 'fitquest.wsgi.application'
 
 
 # Database
@@ -105,6 +106,9 @@ DATABASES = {
 
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
+
+# Use BigAutoField for new auto-created primary keys to avoid W042 warnings.
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_PASSWORD_VALIDATORS = [
     {

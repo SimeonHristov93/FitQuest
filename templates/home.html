@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}FitQuest | Home{% endblock %}
+
+{% block content %}
+<div class="px-4 py-8">
+    <section class="bg-white shadow rounded-lg px-6 py-8">
+        <div class="max-w-3xl">
+            <h1 class="text-3xl sm:text-4xl font-bold text-gray-900">Train together. Compete together. Improve together.</h1>
+            <p class="mt-4 text-lg text-gray-600">
+                FitQuest turns everyday workouts into shared challenges with live leaderboards and automatic achievements.
+            </p>
+            <div class="mt-6 flex flex-wrap gap-3">
+                <a href="{% url 'challenge_list' %}" class="inline-flex items-center px-4 py-3 rounded-md bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-700">
+                    View Challenges
+                </a>
+                {% if user.is_authenticated %}
+                <a href="{% url 'challenge_create' %}" class="inline-flex items-center px-4 py-3 rounded-md border border-gray-300 text-gray-700 text-sm font-medium hover:border-gray-300">
+                    Create a Challenge
+                </a>
+                {% else %}
+                <a href="{% url 'register' %}" class="inline-flex items-center px-4 py-3 rounded-md border border-gray-300 text-gray-700 text-sm font-medium hover:border-gray-300">
+                    Get Started
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+
+    <section class="mt-8 grid grid-cols-1 gap-6">
+        <div class="bg-white shadow rounded-lg p-6">
+            <h3 class="text-lg font-semibold text-gray-900">Challenges with structure</h3>
+            <p class="mt-2 text-sm text-gray-600">Set difficulty, duration, and start dates so everyone competes fairly.</p>
+        </div>
+        <div class="bg-white shadow rounded-lg p-6">
+            <h3 class="text-lg font-semibold text-gray-900">Progress that feels real</h3>
+            <p class="mt-2 text-sm text-gray-600">Log reps or minutes daily and see your totals update instantly.</p>
+        </div>
+        <div class="bg-white shadow rounded-lg p-6">
+            <h3 class="text-lg font-semibold text-gray-900">Achievements & alerts</h3>
+            <p class="mt-2 text-sm text-gray-600">Earn automatic badges and get notified when milestones hit.</p>
+        </div>
+    </section>
+</div>
+{% endblock %}
