@@ -1,10 +1,5 @@
 # FitQuest
 
-![Build](https://img.shields.io/badge/build-unknown-lightgrey?style=flat-square)
-![Tests](https://img.shields.io/badge/tests-unknown-lightgrey?style=flat-square)
-![Coverage](https://img.shields.io/badge/coverage-unknown-lightgrey?style=flat-square)
-![License](https://img.shields.io/badge/license-TBD-lightgrey?style=flat-square)
-
 **FitQuest** is a gamified fitness platform where challenges, achievements, and real‑time leaderboards turn workouts into social, measurable progress.
 
 ---
@@ -39,7 +34,7 @@ pip install -r requirements.txt
 ```
 
 ```bash
-Create a `.env` file with values for:
+Create a .env file with values for:
 DB_NAME=fitquest_db
 DB_USER=postgres
 DB_PASSWORD=postgres
