@@ -3,7 +3,9 @@
 **FitQuest** is a gamified fitness platform where challenges, achievements, and real‑time leaderboards turn workouts into social, measurable progress.
 
 ---
-**https://fitquest-ddgxgse7a6haa8bz.swedencentral-01.azurewebsites.net/
+
+Official link - https://fitquest-ddgxgse7a6haa8bz.swedencentral-01.azurewebsites.net/ 
+
 ---
 
 ## Key Features
