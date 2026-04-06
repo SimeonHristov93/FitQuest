@@ -38,7 +38,7 @@
 pip install -r requirements.txt
 ```
 
-Create a `.env` file with values for:
+```Create a `.env` file with values for:
 DB_NAME=fitquest_db
 DB_USER=postgres
 DB_PASSWORD=postgres
@@ -48,6 +48,7 @@ SECRET_KEY=django-insecure-g_^4__q8jp+9fsr)*r%9a0q5&34hvxf*=#jwgy3tqm4_&4)w13
 DEBUG=True
 CSRF_TRUSTED_ORIGINS=htt://127.0.0.1,http://localhost
 ALLOWED_HOSTS=127.0.0.1,localhost
+```
 
 ```bash
 python manage.py migrate
